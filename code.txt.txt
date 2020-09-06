@@ -1,0 +1,71 @@
+// Ввести массивы А и В.В массив С перенести те элементы массива А, которые больше максимального элемента массива В.
+#include <iostream>
+using namespace std;
+int i, j, n, d;
+
+void BubbleSort(int a[], int n)
+{
+	int i, j, t;
+	for (i = 1; i < n; i++)
+		for (j = n - 1; j >= i; j--)
+			if (a[j - 1] > a[j]) // сравнение двух соседних элементов 
+			{
+				t = a[j - 1];
+				a[j - 1] = a[j]; //перестановка элементов
+				a[j] = t;
+			}
+}
+
+void InsertSort(int m[], int n)
+{
+	int t, i, j;
+	for (i = 1; i < n; i++)
+	{
+		t = m[i];
+		for (j = i - 1; j >= 0 && m[j] > t; j--) // вложенный цикл ищем место для вставки
+			m[j + 1] = m[j]; m[j + 1] = t; //элементы меняются местами
+	}
+}
+//главная функция
+void main()
+{
+	setlocale(LC_ALL, "Rus");
+	int n, t, z, k;
+	cout << "Размер массива A > "; cin >> n;
+	int* A = new int[n];
+	for (k = 0; k < n; k++)
+	{
+		cout << k + 1 << " элемент > "; cin >> A[k];
+	}
+	cout << "Размер массива B > "; cin >> t;
+	int* B = new int[t];
+	for (k = 0; k < t; k++)
+	{
+		cout << k + 1 << " элемент > "; cin >> B[k];
+	}
+	int max = B[0];
+	for (k = 0; k < t; k++)
+	{
+		if (B[k] > max)
+			max = B[k];
+	}
+	cout << "Размер массива C > "; cin >> z;
+	int* C = new int[z];
+	int i = 0;
+	for (k = 0; k < n; k++)
+	{
+		if (A[k] > max )
+		{
+			C[i] = A[k];
+			i++;
+		}
+	}
+
+	//BubbleSort(C, z);
+	
+	InsertSort(C, z);
+
+	cout << "Результирующий массив: ";
+	for (k = 0; k < z; k++)cout << " " << C[k];
+	system("pause>>void");
+}
